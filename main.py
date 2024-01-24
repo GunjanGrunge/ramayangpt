@@ -2,7 +2,6 @@
 #install python-dotenv package and then create a .env file where you can add your api key and then 
 
 import streamlit as st
-from dotenv import dotenv_values
 import openai 
 import os
 import openai
@@ -10,7 +9,7 @@ from llama_index.llms import OpenAI
 import pypdf
 from llama_index import VectorStoreIndex, SimpleDirectoryReader
 from llama_index import ServiceContext, set_global_service_context 
-from dotenv import dotenv_values
+#from dotenv import dotenv_values
 from llama_index.llms.palm import PaLM
 #from llama_index.embeddings import GooglePaLMEmbedding
 
