@@ -5,12 +5,13 @@ import streamlit as st
 import os
 from llama_index.llms import OpenAI
 import pypdf
+import openai
 from llama_index import VectorStoreIndex, SimpleDirectoryReader
 from llama_index import ServiceContext, set_global_service_context 
-#from dotenv import dotenv_values
+from dotenv import load_dotenv
 #from llama_index.embeddings import GooglePaLMEmbedding
 
-config = dotenv_values(".env")
+load_dotenv()
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 st.set_page_config(page_icon="🕉️", layout="centered", initial_sidebar_state="auto", menu_items=None)
@@ -20,14 +21,14 @@ st.markdown(f' <h1 style="color:{color};"> Chat With Valmiki </h1>', unsafe_allo
 
 
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
-    st.session_state.messages = [
+    st.session_state.messages  = [
         {"role": "assistant", "content": "Ask me anything about Ramayan"}
     ]
 
 @st.cache_resource(show_spinner=False)
 def load_data():
     with st.spinner(text="Initializing...hang tight! This should take 1-2  minutes."):
-        docs = SimpleDirectoryReader("data").load_data()
+        docs = SimpleDirectoryReader("./data").load_data()
         llm = OpenAI(temperature=0.1, model="gpt-4")
         service_context = ServiceContext.from_defaults(llm=llm,chunk_size=1000, chunk_overlap=100,system_prompt="You are a guide and here to help, be calm and positive, be polite to the user")
         index = VectorStoreIndex.from_documents(docs, servicecontext=service_context)
