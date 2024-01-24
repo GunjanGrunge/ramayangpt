@@ -15,7 +15,7 @@ from llama_index.llms.palm import PaLM
 #from llama_index.embeddings import GooglePaLMEmbedding
 
 config = dotenv_values(".env")
-openai.api_key = config["OPENAI_API_KEY"]
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 st.set_page_config(page_icon="🕉️", layout="centered", initial_sidebar_state="auto", menu_items=None)
 color = "#ff9933"
